@@ -5,22 +5,23 @@ struct ProfileListView: View {
         ScrollView {
             ProfileAsListItemView()
                 .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
-            Divider()
-                .overlay(.black)
+            listDivider
             ProfileAsListItemView()
-            Divider()
-                .overlay(.black)
+            listDivider
             ProfileAsListItemView()
-            Divider()
-                .overlay(.black)
+            listDivider
             ProfileAsListItemView()
-            Divider()
-                .overlay(.black)
+            listDivider
             ProfileAsListItemView()
-            Divider()
-                .overlay(.black)
+            listDivider
             ProfileAsListItemView()
         }
+    }
+    
+    private var listDivider: some View {
+        return Divider()
+            .overlay(.white)
+            .frame(width: 480)
     }
 }
 
