@@ -21,7 +21,7 @@ class MockupUtilities {
 
     public static func getMockFollowerCount() -> String {
         // Return something like "42.3K", "1.8k", etc.
-        let random: Int = getRandomFollowCount()
+        let random: Int = getRandomFollowerCount()
         return truncateThousandsValue(i: random)
     }
     
@@ -37,9 +37,7 @@ class MockupUtilities {
      */
     private static func getRandomTimeByDenomination(den: String = "h") -> Int {
         let random: Int
-        if den == "Just now" {
-            random = -1
-        } else if den == "s" {
+        if den == "s" {
             random = Int.random(in: 15..<60)
         } else if den == "m" {
             random = Int.random(in: 1..<60)
@@ -50,20 +48,23 @@ class MockupUtilities {
         } else if den == "w" {
             random = Int.random(in: 1...3)
         } else {
-            // Assume months
-            random = Int.random(in: 1...)
+            random = -1
         }
         return random
     }
     
     public static func getRandomTime(denomination: String = "h") -> String {
         let randomTime = getRandomTimeByDenomination(den: denomination)
+        if randomTime == -1 {
+            return "Just now"
+        }
         return "\(randomTime)\(denomination)"
     }
     
     public static func getRandomDenominatedTime() -> String {
         let validDenominations: [String] = ["s", "m", "h", "d", "w"]
-        return getRandomTime(denomination: validDenominations.randomElement())
+        let random = validDenominations.randomElement() ?? "h"
+        return getRandomTime(denomination: random)
     }
 }
 
