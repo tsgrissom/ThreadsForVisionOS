@@ -81,10 +81,10 @@ extension AULikedView {
         RoundedRectangle(cornerRadius: 30)
             .backgroundStyle(.black.opacity(0.8))
         VStack {
-            AULikedView(username: "tgrissom", likedPostText: "Lorem ipsum dolor, shipsum flipsum", timeDifference: "10h")
-                .foregroundColor(.black)
-            AULikedView(username: "randomuser3646", likedPostText: "Lorem ipsum dolor, shipsum flipsum", timeDifference: "10m")
-                .foregroundColor(.black)
+            AULikedView(username: "tgrissom", likedPostText: "Lorem ipsum dolor, shipsum flipsum", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "m"))
+            AULikedView(username: "arandomthreader", likedPostText: "Lorem ipsum dolor, this is a test", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "d"))
+            AULikedView(username: "randomuser3646", likedPostText: "Lorem ipsum dolor, shipsum flipsum", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "w"))
         }
+        .foregroundStyle(.black)
     }
 }

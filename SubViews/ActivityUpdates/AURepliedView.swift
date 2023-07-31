@@ -62,8 +62,11 @@ struct AURepliedView: View {
         RoundedRectangle(cornerRadius: 30)
             .backgroundStyle(.black.opacity(0.8))
         VStack {
-            AURepliedView(username: "tgrissom", subtext: "Hello world!", timeDifference: "3w")
-            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: "10h")
+            AURepliedView(username: "tgrissom", subtext: "Hello world!", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "s"))
+            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "m"))
+            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "h"))
+            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "d"))
+            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "w"))
         }
         .foregroundStyle(.black)
     }

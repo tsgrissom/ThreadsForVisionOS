@@ -78,10 +78,9 @@ extension AUFollowedView {
         RoundedRectangle(cornerRadius: 30)
             .backgroundStyle(.black.opacity(0.8))
         VStack {
-            AUFollowedView(username: "tgrissom", timeDifference: "10h", followedAlteration: "you back", interactButtonText: "Following")
-                .foregroundColor(.black)
-            AUFollowedView(username: "randomuser3646", timeDifference: "10w")
-                .foregroundColor(.black)
+            AUFollowedView(username: "tgrissom", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "m"), followedAlteration: "you back", interactButtonText: "Following")
+            AUFollowedView(username: "randomuser3646", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "w"))
         }
+        .foregroundStyle(.black)
     }
 }

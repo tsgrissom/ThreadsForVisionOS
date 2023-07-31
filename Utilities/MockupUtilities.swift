@@ -13,7 +13,7 @@ class MockupUtilities {
         
         let rem = i % 1000
         let remH = rem % 100
-        let thousands = Double(i - rem) / 1000.0
+        let thousands = ((i - rem) / 1000)
         let hundreds = ((rem - remH) / 100)
         
         return "\(thousands).\(hundreds)\(suffix)"
@@ -53,7 +53,7 @@ class MockupUtilities {
         return random
     }
     
-    public static func getRandomTime(denomination: String = "h") -> String {
+    public static func getMockTimeDifference(denomination: String = "h") -> String {
         let randomTime = getRandomTimeByDenomination(den: denomination)
         if randomTime == -1 {
             return "Just now"
@@ -61,10 +61,10 @@ class MockupUtilities {
         return "\(randomTime)\(denomination)"
     }
     
-    public static func getRandomDenominatedTime() -> String {
+    public static func getRandomMockTimeDifference() -> String {
         let validDenominations: [String] = ["s", "m", "h", "d", "w"]
         let random = validDenominations.randomElement() ?? "h"
-        return getRandomTime(denomination: random)
+        return getMockTimeDifference(denomination: random)
     }
 }
 

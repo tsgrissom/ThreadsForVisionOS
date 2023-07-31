@@ -51,7 +51,7 @@ extension ProfileAsListItemView {
         }
         
         var followerCountGroup: some View {
-            return Text("42.0K followers")
+            return Text("\(MockupUtilities.getMockFollowerCount()) followers")
                 .foregroundStyle(.white)
                 .offset(x: 1)
         }
