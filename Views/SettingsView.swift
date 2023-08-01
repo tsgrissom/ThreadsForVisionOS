@@ -78,8 +78,9 @@ struct SettingsView: View {
     init(isLoggedIn: Bool = false) {
         self.isLoggedIn = isLoggedIn
     }
+    
     var body: some View {
-        let edges = EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0)
+        let edges = EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0)
         return ScrollView {
             topRow
             middleRow
