@@ -10,6 +10,20 @@ struct SettingsPanelViewModifier: ViewModifier {
     }
 }
 
+struct SettingsOptionViewModifier: ViewModifier {
+    let height: CGFloat
+    
+    init(height: CGFloat = 10) {
+        self.height = height
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .buttonStyle(.plain)
+            .frame(height: height)
+    }
+}
+
 struct SettingsPanelHeaderView: View {
     
     let title: String
@@ -65,7 +79,8 @@ struct SettingsView: View {
         self.isLoggedIn = isLoggedIn
     }
     var body: some View {
-        ScrollView {
+        let edges = EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0)
+        return ScrollView {
             topRow
             middleRow
             bottomRow
@@ -73,73 +88,117 @@ struct SettingsView: View {
         }
         .scrollClipDisabled(true)
         .scrollIndicators(.hidden)
-        .padding(EdgeInsets(top: 0, leading: 25, bottom: 0, trailing: 10))
-        .foregroundStyle(.black)
+        .padding(edges)
         .navigationTitle("App Settings")
     }
 }
 
 extension SettingsView {
     private var topRow: some View {
-        let panelModifier = SettingsPanelViewModifier()
+        let panelMod = SettingsPanelViewModifier()
         return HStack(spacing: 0) {
             appearancePanel
-                .modifier(panelModifier)
+                .modifier(panelMod)
             behaviorPanel
-                .modifier(panelModifier)
+                .modifier(panelMod)
             accessibilityPanel
-                .modifier(panelModifier)
+                .modifier(panelMod)
         }
     }
     
     private var middleRow: some View {
-        let panelModifier = SettingsPanelViewModifier()
+        let panelMod = SettingsPanelViewModifier()
         return HStack(spacing: 0) {
             accountPanel
-                .modifier(panelModifier)
+                .modifier(panelMod)
             privacyPanel
-                .modifier(panelModifier)
+                .modifier(panelMod)
             notificationsPanel
-                .modifier(panelModifier)
+                .modifier(panelMod)
         }
     }
     
     private var bottomRow: some View {
-        let panelModifier = SettingsPanelViewModifier()
+        let panelMod = SettingsPanelViewModifier()
         return HStack(spacing: 0) {
             helpPanel
-                .modifier(panelModifier)
+                .modifier(panelMod)
             aboutPanel
-                .modifier(panelModifier)
+                .modifier(panelMod)
         }
     }
     
+    private var aboutPanelHeader: some View {
+        SettingsPanelHeaderView(title: "About", dividerTapMultiplier: 1.15)
+    }
+    
     private var aboutPanel: some View {
+        let optionMod = SettingsOptionViewModifier()
         return VStack {
-            SettingsPanelHeaderView(title: "About", dividerTapMultiplier: 1.15)
+            aboutPanelHeader
             VStack(alignment: .leading) {
-                Text("Some options")
-                Text("Another option")
-                Text("Yet another option")
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
             }
             .fontWeight(.regular)
         }
     }
     
+    private var accessibilityPanelHeader: some View {
+        SettingsPanelHeaderView(title: "Accessibility", dividerTapMultiplier: 2.2)
+    }
+    
     private var accessibilityPanel: some View {
+        let optionMod = SettingsOptionViewModifier()
         return VStack {
-            SettingsPanelHeaderView(title: "Accessibility", dividerTapMultiplier: 2.2)
+            accessibilityPanelHeader
             VStack(alignment: .leading) {
-                Text("Some options")
-                Text("Another option")
-                Text("Yet another option")
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
             }
         }
     }
     
+    private var accountPanelHeader: some View {
+        SettingsPanelHeaderView(title: "Account", dividerTapMultiplier: 1.5)
+    }
+    
     private var accountPanel: some View {
+        let optionMod = SettingsOptionViewModifier()
         return VStack {
-            SettingsPanelHeaderView(title: "Account", dividerTapMultiplier: 1.5)
+            accountPanelHeader
             VStack(alignment: .leading) {
                 if isLoggedIn {
                     Button(action: {
@@ -147,86 +206,174 @@ extension SettingsView {
                     }) {
                         Text("Log out")
                     }
-                    .buttonStyle(.plain)
+                    .modifier(optionMod)
                 } else {
                     Button(action: {
                         self.isLoggedIn = true
                     }) {
                         Text("Log in")
                     }
-                    .buttonStyle(.plain)
+                    .modifier(optionMod)
                     
                     Button(action: {
                         self.isLoggedIn = true
                     }) {
                         Text("Create account")
                     }
-                    .buttonStyle(.plain)
+                    .modifier(optionMod)
                 }
             }
+            .frame(height: 55)
         }
     }
     
+    private var appearancePanelHeader: some View {
+        SettingsPanelHeaderView(title: "Appearance", dividerTapMultiplier: 2.2)
+    }
+    
     private var appearancePanel: some View {
+        let optionMod = SettingsOptionViewModifier()
         return VStack {
-            SettingsPanelHeaderView(title: "Appearance", dividerTapMultiplier: 2.2)
+            appearancePanelHeader
             VStack(alignment: .leading) {
                 Toggle(isOn: /*@START_MENU_TOKEN@*/.constant(true)/*@END_MENU_TOKEN@*/, label: {
                     Text("Dark mode")
                 })
+                .modifier(SettingsOptionViewModifier(height: 15))
+                
                 Button(action: {
                     
                 }) {
                     Text("Theme options")
                 }
-                .buttonStyle(.plain)
+                .modifier(optionMod)
             }
+            .frame(height: 55)
             .frame(width: 200 * 0.8)
         }
     }
     
+    private var behaviorPanelHeader: some View {
+        SettingsPanelHeaderView(title: "Behavior", dividerTapMultiplier: 1.5)
+    }
+    
     private var behaviorPanel: some View {
+        let optionMod = SettingsOptionViewModifier()
         return VStack {
-            SettingsPanelHeaderView(title: "Behavior", dividerTapMultiplier: 1.5)
+            behaviorPanelHeader
             VStack(alignment: .leading) {
-                Text("Some options")
-                Text("Another option")
-                Text("Yet another option")
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
             }
-            .fontWeight(.regular)
         }
+    }
+    
+    private var notificationsPanelHeader: some View {
+        SettingsPanelHeaderView(title: "Notifications", dividerTapMultiplier: 2.25)
     }
     
     private var notificationsPanel: some View {
+        let optionMod = SettingsOptionViewModifier()
         return VStack {
-            SettingsPanelHeaderView(title: "Notifications", dividerTapMultiplier: 2.25)
+            notificationsPanelHeader
             VStack(alignment: .leading) {
-                Text("Some options")
-                Text("Another option")
-                Text("Yet another option")
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
             }
             .fontWeight(.regular)
         }
     }
     
+    private var privacyPanelHeader: some View {
+        SettingsPanelHeaderView(title: "Privacy", dividerTapMultiplier: 1.3)
+    }
+    
     private var privacyPanel: some View {
+        let optionMod = SettingsOptionViewModifier()
         return VStack {
-            SettingsPanelHeaderView(title: "Privacy", dividerTapMultiplier: 1.3)
+            privacyPanelHeader
             VStack(alignment: .leading) {
-                Text("Some options")
-                Text("Another option")
-                Text("Yet another option")
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
             }
         }
     }
     
+    private var helpPanelHeader: some View {
+        SettingsPanelHeaderView(title: "Help", dividerTapMultiplier: 1.15)
+    }
+    
     private var helpPanel: some View {
+        let optionMod = SettingsOptionViewModifier()
         return VStack {
-            SettingsPanelHeaderView(title: "Help", dividerTapMultiplier: 1.15)
+            helpPanelHeader
             VStack(alignment: .leading) {
-                Text("Some options")
-                Text("Another option")
-                Text("Yet another option")
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
+                Button(action: {
+                    
+                }) {
+                    Text("An option")
+                }
+                .modifier(optionMod)
             }
         }
     }
