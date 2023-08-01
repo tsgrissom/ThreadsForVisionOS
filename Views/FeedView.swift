@@ -16,6 +16,7 @@ struct FeedView: View {
                 PostView(isOwnedByUser: false)
                 PostView(isOwnedByUser: false)
             }
+            .scrollClipDisabled(true)
             .padding(EdgeInsets(top: 0, leading: 25, bottom: 0, trailing: 0))
             Spacer()
         }

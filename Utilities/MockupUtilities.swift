@@ -3,7 +3,7 @@ import Foundation
 class MockupUtilities {
     
     public static func getRandomFollowerCount() -> Int {
-        return Int.random(in:1000..<5000)
+        return Int.random(in:1000..<25000)
     }
     
     private static func truncateThousandsValue(i: Int, suffix: String = "K") -> String {
