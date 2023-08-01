@@ -2,19 +2,24 @@ import SwiftUI
 import RealityKit
 import RealityKitContent
 
+import LoremSwiftum
+
 struct PostView: View {
-    
-    @State var btnPostColor: Color = .white
-    @State var btnPostText: String = "Post"
     
     let displayReturnButton: Bool
     let displayHeader: Bool
     let isOwnedByUser: Bool
     
-    init(displayReturnButton: Bool = false, displayHeader: Bool = true, isOwnedByUser: Bool = false) {
+    @State var isLiked: Bool
+    @State var isReposted: Bool
+    
+    init(displayReturnButton: Bool = false, displayHeader: Bool = true, isOwnedByUser: Bool = false,
+         isLiked: Bool = false, isReposted: Bool = false) {
         self.displayReturnButton = displayReturnButton
         self.displayHeader = displayHeader
         self.isOwnedByUser = isOwnedByUser
+        self.isLiked = isLiked
+        self.isReposted = isReposted
     }
     
     var body: some View {
@@ -43,20 +48,6 @@ struct PostView: View {
 
 extension PostView {
     
-    func getPostText() -> String {
-        let loremApiUrl = "https://loripsum.net/api/plaintext/short/1/"
-        if let url = URL(string: loremApiUrl) {
-            do {
-                let contents = try String(contentsOf: url)
-                return contents
-            } catch {
-                return "Lorem ipsum dolor sit amet, failed to get API text!"
-            }
-        }
-        
-        return "Lorem ipsum dolor sit amet, bad URL for lorem API!"
-    }
-    
     private var containerLayer: some View {
         return RoundedRectangle(cornerRadius: 15)
             .fill(.white)
@@ -73,27 +64,51 @@ extension PostView {
     }
     
     private var postContentRow: some View {
+        let postText = Lorem.tweet
         return HStack {
             ScrollView {
-                Text(getPostText())
+                Text(postText)
             }
-            .frame(maxHeight: 130)
+            .frame(maxHeight: 140)
             Spacer()
         }
     }
     
     private var controlRowOther: some View {
-        return HStack {
-            Button(action: {
-                
-            }, label: {
-                Text("Like")
-            })
-            Button(action: {
-                
-            }, label: {
-                Text("Repost")
-            })
+        return HStack(spacing: 0) {
+            HStack {
+                if isLiked {
+                    Button(action: {
+                        self.isLiked = false
+                    }, label: {
+                        Text("Liked")
+                    })
+                } else {
+                    Button(action: {
+                        self.isLiked = true
+                    }, label: {
+                        Text("Like")
+                    })
+                }
+            }
+            .frame(width: 90)
+            
+            HStack {
+                if isReposted {
+                    Button(action: {
+                        self.isReposted = false
+                    }, label: {
+                        Text("Reposted")
+                    })
+                } else {
+                    Button(action: {
+                        self.isReposted = true
+                    }, label: {
+                        Text("Repost")
+                    })
+                }
+            }
+            .frame(width: 130)
         }
     }
     

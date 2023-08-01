@@ -3,6 +3,7 @@ import SwiftUI
 struct ProfileView: View {
     
     let isOwnedByUser = true
+    let innerPadding = EdgeInsets(top: 5, leading: 40, bottom: 5, trailing: 40)
     
     var body: some View {
         HStack {
@@ -17,7 +18,7 @@ struct ProfileView: View {
                         .padding(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                     postsSection
                 }
-                .padding(getInnerPadding())
+                .padding(innerPadding)
                 Spacer()
             }
             .cornerRadius(20)
@@ -29,10 +30,6 @@ struct ProfileView: View {
 }
 
 extension ProfileView {
-    func getInnerPadding() -> EdgeInsets {
-        return EdgeInsets(top: 5, leading: 40, bottom: 5, trailing: 40)
-    }
-    
     private var headerRow: some View {
         return VStack {
             HStack {
@@ -52,7 +49,7 @@ extension ProfileView {
     }
     
     private var followerRow: some View {
-        let followerCount = Int.random(in: 100..<500)
+        let followerCount = MockupUtilities.getMockFollowerCount()
         return HStack(spacing: 40) {
             ZStack {
                 ProfilePictureView(disableAnimation: true)
