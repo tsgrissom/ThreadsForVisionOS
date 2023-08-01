@@ -3,9 +3,10 @@ import SwiftUI
 struct SettingsPanelViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .frame(height: 150)
+            .frame(height: 140)
             .frame(maxWidth: 200)
             .fontWeight(.regular)
+            .foregroundStyle(.white)
     }
 }
 
@@ -24,25 +25,34 @@ struct SettingsPanelHeaderView: View {
         self.dividerTapMultiplier = dividerTapMultiplier
     }
     
+    func animateDividerWidth() {
+        if dividerWidth != initDividerWidth {
+            return
+        }
+        
+        withAnimation {
+            dividerWidth *= dividerTapMultiplier
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            withAnimation {
+                dividerWidth = initDividerWidth
+            }
+        })
+    }
+    
     var body: some View {
         VStack {
             Text(title)
                 .font(.system(size: 20))
                 .bold()
             Divider()
-                .overlay(.black)
+                .overlay(.white)
                 .frame(width: dividerWidth)
         }
+        .foregroundStyle(.white)
         .onTapGesture {
-            withAnimation {
-                dividerWidth *= dividerTapMultiplier
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                withAnimation {
-                    dividerWidth = initDividerWidth
-                }
-            })
+            self.animateDividerWidth()
         }
     }
 }
@@ -54,19 +64,16 @@ struct SettingsView: View {
     init(isLoggedIn: Bool = false) {
         self.isLoggedIn = isLoggedIn
     }
-    
-    let rowInsets = EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0)
     var body: some View {
         ScrollView {
             topRow
             middleRow
-                .padding(rowInsets)
             bottomRow
-                .padding(rowInsets)
             Spacer()
         }
         .scrollClipDisabled(true)
-        .padding(EdgeInsets(top: 20, leading: 30, bottom: 0, trailing: 10))
+        .scrollIndicators(.hidden)
+        .padding(EdgeInsets(top: 0, leading: 25, bottom: 0, trailing: 10))
         .foregroundStyle(.black)
         .navigationTitle("App Settings")
     }
@@ -75,7 +82,7 @@ struct SettingsView: View {
 extension SettingsView {
     private var topRow: some View {
         let panelModifier = SettingsPanelViewModifier()
-        return HStack(spacing: 30) {
+        return HStack(spacing: 0) {
             appearancePanel
                 .modifier(panelModifier)
             behaviorPanel
@@ -87,7 +94,7 @@ extension SettingsView {
     
     private var middleRow: some View {
         let panelModifier = SettingsPanelViewModifier()
-        return HStack(spacing: 30) {
+        return HStack(spacing: 0) {
             accountPanel
                 .modifier(panelModifier)
             privacyPanel
@@ -99,7 +106,7 @@ extension SettingsView {
     
     private var bottomRow: some View {
         let panelModifier = SettingsPanelViewModifier()
-        return HStack(spacing: 30) {
+        return HStack(spacing: 0) {
             helpPanel
                 .modifier(panelModifier)
             aboutPanel
@@ -109,7 +116,7 @@ extension SettingsView {
     
     private var aboutPanel: some View {
         return VStack {
-            SettingsPanelHeaderView(title: "About")
+            SettingsPanelHeaderView(title: "About", dividerTapMultiplier: 1.15)
             VStack(alignment: .leading) {
                 Text("Some options")
                 Text("Another option")
@@ -121,7 +128,7 @@ extension SettingsView {
     
     private var accessibilityPanel: some View {
         return VStack {
-            SettingsPanelHeaderView(title: "Accessibility")
+            SettingsPanelHeaderView(title: "Accessibility", dividerTapMultiplier: 2.2)
             VStack(alignment: .leading) {
                 Text("Some options")
                 Text("Another option")
@@ -132,7 +139,7 @@ extension SettingsView {
     
     private var accountPanel: some View {
         return VStack {
-            SettingsPanelHeaderView(title: "Account")
+            SettingsPanelHeaderView(title: "Account", dividerTapMultiplier: 1.5)
             VStack(alignment: .leading) {
                 if isLoggedIn {
                     Button(action: {
@@ -162,7 +169,7 @@ extension SettingsView {
     
     private var appearancePanel: some View {
         return VStack {
-            SettingsPanelHeaderView(title: "Appearance")
+            SettingsPanelHeaderView(title: "Appearance", dividerTapMultiplier: 2.2)
             VStack(alignment: .leading) {
                 Toggle(isOn: /*@START_MENU_TOKEN@*/.constant(true)/*@END_MENU_TOKEN@*/, label: {
                     Text("Dark mode")
@@ -180,7 +187,7 @@ extension SettingsView {
     
     private var behaviorPanel: some View {
         return VStack {
-            SettingsPanelHeaderView(title: "Behavior")
+            SettingsPanelHeaderView(title: "Behavior", dividerTapMultiplier: 1.5)
             VStack(alignment: .leading) {
                 Text("Some options")
                 Text("Another option")
@@ -192,7 +199,7 @@ extension SettingsView {
     
     private var notificationsPanel: some View {
         return VStack {
-            SettingsPanelHeaderView(title: "Notifications")
+            SettingsPanelHeaderView(title: "Notifications", dividerTapMultiplier: 2.25)
             VStack(alignment: .leading) {
                 Text("Some options")
                 Text("Another option")
@@ -204,7 +211,7 @@ extension SettingsView {
     
     private var privacyPanel: some View {
         return VStack {
-            SettingsPanelHeaderView(title: "Privacy")
+            SettingsPanelHeaderView(title: "Privacy", dividerTapMultiplier: 1.3)
             VStack(alignment: .leading) {
                 Text("Some options")
                 Text("Another option")
@@ -215,7 +222,7 @@ extension SettingsView {
     
     private var helpPanel: some View {
         return VStack {
-            SettingsPanelHeaderView(title: "Help")
+            SettingsPanelHeaderView(title: "Help", dividerTapMultiplier: 1.15)
             VStack(alignment: .leading) {
                 Text("Some options")
                 Text("Another option")
@@ -228,7 +235,7 @@ extension SettingsView {
 #Preview {
     ZStack {
         RoundedRectangle(cornerRadius: 30)
-            .fill(.white.opacity(0.8))
+            .fill(.black.opacity(0.8))
         SettingsView()
     }
 }
