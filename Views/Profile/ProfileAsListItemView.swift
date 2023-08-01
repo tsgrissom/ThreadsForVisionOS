@@ -59,7 +59,7 @@ extension ProfileAsListItemView {
         var profilePictureSampleGroup: some View {
             let fd: CGFloat = 20
             let lw: CGFloat = 0.5
-            return ZStack {
+            return ZStack {           
                 ProfilePictureView(disableAnimation: true, frameDimension: fd, lineWidth: lw)
                     .offset(x: -5)
                 ProfilePictureView(disableAnimation: true, frameDimension: fd, lineWidth: lw)
