@@ -23,59 +23,82 @@ struct PostView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        ZStack {
             containerLayer
-            
-            VStack(alignment: .leading, content: {
-                if (displayHeader) {
-                    headerRow
-                }
-                
-                postContentRow
-                    .frame(maxWidth: 500)
-                
-                if isOwnedByUser {
-                    controlRowSelf
-                } else {
-                    controlRowOther
-                }
-            })
-            .padding()
+            containerContents
         }
+        .frame(width: 550, height: 250)
         .foregroundStyle(.black)
     }
 }
 
 extension PostView {
-    
     private var containerLayer: some View {
-        return RoundedRectangle(cornerRadius: 15)
+        RoundedRectangle(cornerRadius: 15)
             .fill(.white)
-            .frame(maxWidth: 550)
-            .frame(maxHeight: 300)
+            .frame(maxWidth: .infinity)
+            .frame(maxHeight: .infinity)
+    }
+    
+    private var containerContents: some View {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading) {
+                headerRow
+            }
+            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 0))
+            .zIndex(5)
+            .frame(width: .infinity)
+            .frame(height: 45)
+            .clipShape(Capsule())
+            // For noclip ScrollView to occlude the ScrollView if it goes behind the header
+            
+            HStack {
+                postContentRow
+                    .scrollIndicators(.hidden)
+                    .frame(maxHeight: 120)
+                    .frame(maxWidth: 500)
+                    .lineLimit(5)
+                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                    .background(Color.init(red: 249 / 255, green: 249 / 255, blue: 249 / 255))
+                    .cornerRadius(10)
+            }
+            .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
+            
+            controlRow
+                .padding(EdgeInsets(top: 5, leading: 15, bottom: 0, trailing: 15))
+        }
     }
     
     private var headerRow: some View {
         return HStack {
             ProfilePictureView(frameDimension: 45)
-            Text(isOwnedByUser ? "@you" : "@username")
+            Text(isOwnedByUser ? "Your Post" : "username")
                 .font(.largeTitle)
+            Spacer()
         }
     }
     
     private var postContentRow: some View {
-        let postText = Lorem.tweet
-        return HStack {
-            ScrollView {
-                Text(postText)
+        ScrollView {
+            VStack(spacing: 0) {
+                Text(Lorem.tweet)
             }
-            .frame(maxHeight: 140)
+        }
+    }
+    
+    private var controlRow: some View {
+        HStack(spacing: 4) {
+            if self.isOwnedByUser {
+                controlRowSelf
+            } else {
+                controlRowOther
+            }
             Spacer()
         }
     }
     
     private var controlRowOther: some View {
-        return HStack(spacing: 0) {
+        Group {
             HStack {
                 if isLiked {
                     Button(action: {
@@ -113,7 +136,7 @@ extension PostView {
     }
     
     private var controlRowSelf: some View {
-        return HStack {
+        Group {
             Button(action: {
                 
             }, label: {
@@ -130,5 +153,12 @@ extension PostView {
 }
 
 #Preview {
-    PostView(isOwnedByUser: false)
+    ZStack {
+        RoundedRectangle(cornerRadius: 30)
+            .fill(.black.opacity(0.8))
+        ScrollView {
+            PostView(isOwnedByUser: false)
+            PostView(isOwnedByUser: true)
+        }
+    }
 }

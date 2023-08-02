@@ -3,62 +3,96 @@ import SwiftUI
 struct ProfileView: View {
     
     let isOwnedByUser = true
-    let innerPadding = EdgeInsets(top: 5, leading: 40, bottom: 5, trailing: 40)
+    let innerEdges = EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40)
     
     var body: some View {
-        HStack {
-            VStack {
-                VStack {
-                    headerRow
-                    followerRow
-                    topInteractionRow
-                        .foregroundStyle(.black)
-                    Divider()
-                        .overlay(.white)
-                        .padding(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-                    postsSection
-                }
-                .padding(innerPadding)
-                Spacer()
-            }
-            .cornerRadius(20)
-            .foregroundStyle(.white)
-            .frame(maxWidth: 400)
+        let navTitle: String = isOwnedByUser ? "Your Profile" : "Display Name"
+        return VStack {
+            upperPanel
+            lowerPanel
+                .scrollIndicators(.hidden)
             Spacer()
         }
+        .foregroundStyle(.white)
+        .navigationTitle(navTitle)
     }
 }
 
 extension ProfileView {
-    private var headerRow: some View {
-        return VStack {
+    
+    func getFollowerCount() -> String {
+        "\(MockupUtilities.getMockFollowerCount()) followers"
+    }
+    
+    private var upperPanel: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                usernameRow
+                followerRow
+                topInteractionRow
+                    .foregroundStyle(.black)
+            }
+            .padding(innerEdges)
+            .frame(maxWidth: 400)
+            Spacer()
+        }
+    }
+    
+    private var lowerPanel: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                HStack {
+                    Text("Recent Posts")
+                        .font(.extraLargeTitle2)
+                    Spacer()
+                }
+                .padding(EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40))
+                
+                HStack {
+                    recentPostsSection
+                        .scrollIndicators(.hidden)
+                    Spacer()
+                }
+                .padding(EdgeInsets(top: 5, leading: 15, bottom: 10, trailing: 10))
+            }
+        }
+    }
+    
+    private var fediverseLocation: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 30)
+                .fill(.white)
+                .frame(maxWidth: 110)
+                .frame(maxHeight: 30)
+            Text("threads.net")
+                .foregroundStyle(.gray)
+        }
+    }
+    
+    private var usernameRow: some View {
+        VStack {
             HStack {
                 Text("@userhandle")
-                ZStack {
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(.white)
-                        .frame(maxWidth: 110)
-                        .frame(maxHeight: 30)
-                    Text("threads.net")
-                        .foregroundStyle(.gray)
-                }
+                fediverseLocation
                 Spacer()
             }
         }
-        .navigationTitle(isOwnedByUser ? "Your Profile" : "Display Name")
+    }
+    
+    private var followerSamplePictureStack: some View {
+        ZStack {
+            ProfilePictureView(disableAnimation: true)
+            ProfilePictureView(disableAnimation: true)
+                .offset(x: 15)
+            ProfilePictureView(disableAnimation: true)
+                .offset(x: 30)
+        }
     }
     
     private var followerRow: some View {
-        let followerCount = MockupUtilities.getMockFollowerCount()
-        return HStack(spacing: 40) {
-            ZStack {
-                ProfilePictureView(disableAnimation: true)
-                ProfilePictureView(disableAnimation: true)
-                    .offset(x: 15)
-                ProfilePictureView(disableAnimation: true)
-                    .offset(x: 30)
-            }
-            Text("\(followerCount) followers")
+        HStack(spacing: 40) {
+            followerSamplePictureStack
+            Text(self.getFollowerCount())
             Spacer()
         }
     }
@@ -86,15 +120,17 @@ extension ProfileView {
         }
     }
     
-    private var postsSection: some View {
-        return ScrollView {
-            PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-            PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-            PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-            PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-            PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-            PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-            PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+    private var recentPostsSection: some View {
+        ScrollView(.horizontal) {
+            HStack {
+                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+            }
         }
     }
 }
