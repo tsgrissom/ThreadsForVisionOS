@@ -80,8 +80,7 @@ struct SettingsView: View {
     }
     
     var body: some View {
-        let edges = EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0)
-        return ScrollView {
+        ScrollView {
             topRow
             middleRow
             bottomRow
@@ -89,7 +88,7 @@ struct SettingsView: View {
         }
         .scrollClipDisabled(true)
         .scrollIndicators(.hidden)
-        .padding(edges)
+        .padding([.leading], 5)
         .navigationTitle("App Settings")
     }
 }

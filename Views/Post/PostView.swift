@@ -73,7 +73,7 @@ extension PostView {
             .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
             
             controlRow
-                .padding(EdgeInsets(top: 5, leading: 15, bottom: 0, trailing: 15))
+                .padding(EdgeInsets(top: 5, leading: 25, bottom: 0, trailing: 25))
         }
     }
     
@@ -95,7 +95,7 @@ extension PostView {
     }
     
     private var controlRow: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 0) {
             if self.isOwnedByUser {
                 controlRowSelf
             } else {
@@ -106,7 +106,8 @@ extension PostView {
     }
     
     private var controlRowOther: some View {
-        Group {
+        let btnStyle = MetaButtonStyle()
+        return Group {
             HStack {
                 if isLiked {
                     Button(action: {
@@ -114,13 +115,16 @@ extension PostView {
                     }, label: {
                         Text("Liked")
                     })
+                    .buttonStyle(btnStyle)
                 } else {
                     Button(action: {
                         self.isLiked = true
                     }, label: {
                         Text("Like")
                     })
+                    .buttonStyle(btnStyle)
                 }
+                Spacer()
             }
             .frame(width: 90)
             
@@ -131,31 +135,52 @@ extension PostView {
                     }, label: {
                         Text("Reposted")
                     })
+                    .buttonStyle(btnStyle)
                 } else {
                     Button(action: {
                         self.isReposted = true
                     }, label: {
                         Text("Repost")
                     })
+                    .buttonStyle(btnStyle)
                 }
+                Spacer()
             }
-            .frame(width: 130)
+            .frame(width: 120)
         }
     }
     
     private var controlRowSelf: some View {
-        Group {
-            Button(action: {
-                
-            }, label: {
-                Label("Edit", systemImage: "pencil")
-            })
-            Button(action: {
-                
-            }, label: {
-                Label("Delete", systemImage: "trash")
+        let btnStyle = MetaButtonStyle()
+        return Group {
+            HStack {
+                Button(action: {
+                    
+                }, label: {
+                    Label("Edit", systemImage: "pencil")
+                })
+                .buttonStyle(btnStyle)
+                Spacer()
+            }
+            .frame(width: 125)
+            
+            HStack {
+                Button(action: {
+                    
+                }, label: {
+                    Label(
+                        title: { Text("Delete") },
+                        icon: {
+                            Image(systemName: "trash")
+                                .font(.system(size: 16))
+                        }
+                    )
                     .foregroundStyle(.red)
-            })
+                })
+                .buttonStyle(btnStyle)
+                Spacer()
+            }
+            .frame(width: 140)
         }
     }
 }

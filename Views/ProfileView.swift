@@ -98,23 +98,20 @@ extension ProfileView {
     }
     
     private var topInteractionRow: some View {
+        let btnStyle = MetaButtonStyle()
         return HStack {
             if (isOwnedByUser) {
                 Button("Edit profile") {
                     
                 }
-                .background(.white)
-                .clipShape(Capsule())
-                .buttonStyle(.borderless)
+                .buttonStyle(btnStyle)
                 
                 Spacer()
                     .frame(maxWidth: 20)
                 Button("Share profile") {
                     
                 }
-                .background(.white)
-                .clipShape(Capsule())
-                .buttonStyle(.borderless)
+                .buttonStyle(btnStyle)
             }
             
         }

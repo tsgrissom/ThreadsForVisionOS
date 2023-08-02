@@ -100,6 +100,7 @@ extension ProfileAsListItemView {
             }, label: {
                 Text(self.followingButtonText)
             })
+            .buttonStyle(MetaButtonStyle())
             Spacer()
         }
     }
