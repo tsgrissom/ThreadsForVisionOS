@@ -33,6 +33,10 @@ struct PostView: View {
 }
 
 extension PostView {
+    func getUsername() -> String {
+        MockupUtilities.getMockUsername()
+    }
+    
     private var containerLayer: some View {
         RoundedRectangle(cornerRadius: 15)
             .fill(.white)
@@ -72,7 +76,7 @@ extension PostView {
     private var headerRow: some View {
         return HStack {
             ProfilePictureView(frameDimension: 45)
-            Text(isOwnedByUser ? "Your Post" : "username")
+            Text(isOwnedByUser ? "Your Post" : self.getUsername())
                 .font(.largeTitle)
             Spacer()
         }

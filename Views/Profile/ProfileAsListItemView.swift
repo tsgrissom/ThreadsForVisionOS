@@ -27,7 +27,7 @@ struct ProfileAsListItemView: View {
 
 extension ProfileAsListItemView {
     func getUsername() -> String {
-        "@username"
+        MockupUtilities.getMockUsername()
     }
     
     func getDisplayName() -> String {
@@ -105,6 +105,10 @@ extension ProfileAsListItemView {
         RoundedRectangle(cornerRadius: 30)
             .fill(.black.opacity(0.8))
         ScrollView {
+            ProfileAsListItemView()
+            ProfileAsListItemView()
+            ProfileAsListItemView()
+            ProfileAsListItemView()
             ProfileAsListItemView()
             ProfileAsListItemView()
             ProfileAsListItemView()

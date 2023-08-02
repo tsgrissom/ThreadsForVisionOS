@@ -1,5 +1,7 @@
 import Foundation
 
+import LoremSwiftum
+
 class MockupUtilities {
     
     public static func getRandomFollowerCount() -> Int {
@@ -65,6 +67,32 @@ class MockupUtilities {
         let validDenominations: [String] = ["s", "m", "h", "d", "w"]
         let random = validDenominations.randomElement() ?? "h"
         return getMockTimeDifference(denomination: random)
+    }
+    
+    public static func getMockUsername() -> String {
+        let genericPrefixes = ["RandomUser", "ARandomThreader", "Threadster", "ARandomUser", "AThreader"]
+        let mode = Int.random(in: 1...3)
+        let x = Int.random(in: 1000...5000)
+        var prefix: String
+        var flip: Bool = Bool.random()
+        
+        switch(mode) {
+        case 1: // Use generic prefix
+            prefix = genericPrefixes.randomElement() ?? "RandomUser"
+            
+            if flip {
+                prefix = prefix.lowercased()
+            }
+            
+            flip = true
+        case 2: // Use FirstnameLastname as prefix
+            prefix = "\(Lorem.firstName)\(Lorem.lastName)"
+        default: // Use FirstnameX as username
+            prefix = Lorem.firstName
+            flip = true
+        }
+        
+        return flip ? "\(prefix)\(x)" : prefix
     }
 }
 
