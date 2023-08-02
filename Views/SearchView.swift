@@ -10,14 +10,17 @@ struct SearchView: View {
     
     var body: some View {
         VStack {
-            HStack(alignment: .center) {
+            HStack {
                 TextField("Search Threads...", text: $searchTextField)
-                    .frame(width: 300)
+                    .frame(width: 420)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                Spacer()
             }
-            .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
+            .padding(EdgeInsets(top: 0, leading: 35, bottom: 0, trailing: 0))
             HStack {
                 ProfileListView()
+                    .frame(width: 500)
+                Spacer()
             }
         }
         .navigationTitle("Search")
