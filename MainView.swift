@@ -19,7 +19,7 @@ struct MainView: View {
         return Group {
             NavigationLink(destination: ActivityView(), label: {
                 Label(title: { Text("Activity") }, icon: {
-                    Image(systemName: "heart.fill")
+                    Image(systemName: "heart")
                         .foregroundStyle(.white)
                 })
             })
