@@ -69,12 +69,12 @@ class MockupUtilities {
         return getMockTimeDifference(denomination: random)
     }
     
-    public static func getMockUsername() -> String {
+    public static func getMockUsername(firstName: String = Lorem.firstName, lastName: String = Lorem.lastName) -> String {
         let genericPrefixes = ["RandomUser", "ARandomThreader", "Threadster", "ARandomUser", "AThreader"]
         let mode = Int.random(in: 1...3)
         let x = Int.random(in: 1000...5000)
         var prefix: String
-        var flip: Bool = Bool.random()
+        var flip: Bool = Bool.random() // Coin flip decides if numbers are appended to the end of the username
         
         switch(mode) {
         case 1: // Use generic prefix
@@ -86,9 +86,9 @@ class MockupUtilities {
             
             flip = true
         case 2: // Use FirstnameLastname as prefix
-            prefix = "\(Lorem.firstName)\(Lorem.lastName)"
+            prefix = "\(firstName)\(lastName)"
         default: // Use FirstnameX as username
-            prefix = Lorem.firstName
+            prefix = firstName
             flip = true
         }
         

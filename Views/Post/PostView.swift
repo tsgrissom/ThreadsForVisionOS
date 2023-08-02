@@ -9,6 +9,8 @@ struct PostView: View {
     let displayReturnButton: Bool
     let displayHeader: Bool
     let isOwnedByUser: Bool
+    let firstName: String
+    let lastName: String
     
     @State var isLiked: Bool
     @State var isReposted: Bool
@@ -20,6 +22,8 @@ struct PostView: View {
         self.isOwnedByUser = isOwnedByUser
         self.isLiked = isLiked
         self.isReposted = isReposted
+        self.firstName = Lorem.firstName
+        self.lastName = Lorem.lastName
     }
     
     var body: some View {
@@ -34,7 +38,7 @@ struct PostView: View {
 
 extension PostView {
     func getUsername() -> String {
-        MockupUtilities.getMockUsername()
+        MockupUtilities.getMockUsername(firstName: self.firstName, lastName: self.lastName)
     }
     
     private var containerLayer: some View {

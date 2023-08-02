@@ -4,10 +4,15 @@ import LoremSwiftum
 
 struct ProfileAsListItemView: View {
     
+    let firstName: String
+    let lastName: String
+    
     @State private var followingButtonText:String
     
     init(followingButtonText: String = "Follow") {
         self.followingButtonText = followingButtonText
+        self.firstName = Lorem.firstName
+        self.lastName = Lorem.lastName
     }
     
     var body: some View {
@@ -27,11 +32,11 @@ struct ProfileAsListItemView: View {
 
 extension ProfileAsListItemView {
     func getUsername() -> String {
-        MockupUtilities.getMockUsername()
+        MockupUtilities.getMockUsername(firstName: self.firstName, lastName: self.lastName)
     }
     
     func getDisplayName() -> String {
-        Lorem.fullName
+        "\(firstName) \(lastName)"
     }
     
     func getFollowerCount() -> String {
