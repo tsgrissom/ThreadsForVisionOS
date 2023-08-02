@@ -141,19 +141,19 @@ extension SettingsView {
                 Button(action: {
                     
                 }) {
-                    Text("An option")
+                    Text("Privacy Policy")
                 }
                 .modifier(optionMod)
                 Button(action: {
                     
                 }) {
-                    Text("An option")
+                    Text("Terms of Use")
                 }
                 .modifier(optionMod)
                 Button(action: {
                     
                 }) {
-                    Text("An option")
+                    Text("Third Party Notices")
                 }
                 .modifier(optionMod)
             }
@@ -360,19 +360,19 @@ extension SettingsView {
                 Button(action: {
                     
                 }) {
-                    Text("An option")
+                    Text("Report a problem")
                 }
                 .modifier(optionMod)
                 Button(action: {
                     
                 }) {
-                    Text("An option")
+                    Text("Help Center")
                 }
                 .modifier(optionMod)
                 Button(action: {
                     
                 }) {
-                    Text("An option")
+                    Text("Support requests")
                 }
                 .modifier(optionMod)
             }
