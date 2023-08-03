@@ -1,7 +1,10 @@
 import SwiftUI
 
+import LoremSwiftum
+
 struct AURepliedView: View {
     
+    let maxFrameWidth: CGFloat = 375
     let username: String
     let repliedToAlteration: String
     let subtext: String
@@ -15,16 +18,15 @@ struct AURepliedView: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             iconColumn
             descriptiveColumn
-            Spacer()
+                .frame(width: 350)
         }
-        .frame(width: 325)
     }
     
     private var overlayIcon: some View {
-        return AUOverlayIconView(
+        AUOverlayIconView(
             bgRed: 59,
             bgGreen: 205,
             bgBlue: 227,
@@ -34,25 +36,35 @@ struct AURepliedView: View {
     }
     
     private var iconColumn: some View {
-        return ZStack {
-            ProfilePictureView(disableAnimation: true, frameDimension: 40)
-            overlayIcon
-                .offset(x: 15, y: 10)
+        HStack {
+            ZStack {
+                ProfilePictureView(disableAnimation: true, frameDimension: 40)
+                overlayIcon
+                    .offset(x: 15, y: 10)
+            }
+            
+            Spacer()
+                .frame(width: 10)
         }
     }
     
     private var descriptiveColumn: some View {
-        return VStack(alignment: .leading) {
-            HStack {
-                Text(username)
-                    .bold()
-                Text(timeDifference)
+        HStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(username)
+                        .bold()
+                    Text(timeDifference)
+                        .foregroundStyle(.gray)
+                }
+                Text("Replied to \(repliedToAlteration)")
+                    .foregroundStyle(.gray)
+                Text(subtext)
+                    .lineLimit(1)
                     .foregroundStyle(.gray)
             }
-            Text("Replied to \(repliedToAlteration)")
-                .foregroundStyle(.gray)
-            Text(subtext)
-                .foregroundStyle(.gray)
+            
+            Spacer()
         }
     }
 }
@@ -61,13 +73,16 @@ struct AURepliedView: View {
     ZStack {
         RoundedRectangle(cornerRadius: 30)
             .backgroundStyle(.black.opacity(0.8))
-        VStack {
-            AURepliedView(username: "tgrissom", subtext: "Hello world!", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "s"))
-            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "m"))
-            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "h"))
-            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "d"))
-            AURepliedView(username: "loremipsum", subtext: "Lorem ipsum dolor", timeDifference: MockupUtilities.getMockTimeDifference(denomination: "w"))
+        ScrollView {
+            ForEach(1...10, id: \.self) { i in
+                AURepliedView(
+                    username: MockupUtilities.getMockUsername(),
+                    subtext: Lorem.tweet,
+                    timeDifference: MockupUtilities.getMockTimeDifference()
+                )
+            }
         }
+        .frame(width: 800)
         .foregroundStyle(.black)
     }
 }

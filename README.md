@@ -10,4 +10,4 @@ ThreadsForVisionOS is a mockup of how Meta's Threads platform might look when it
 
 * Fill out `ActivityView`
 * Revamp `NewThreadView`
-
+* Fix minor clipping on leading edge of Activity Update views
