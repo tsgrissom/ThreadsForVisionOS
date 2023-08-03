@@ -53,7 +53,8 @@ extension PostView {
             VStack(alignment: .leading) {
                 headerRow
             }
-            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 0))
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
             .zIndex(5)
             .frame(width: .infinity)
             .frame(height: 45)
@@ -66,14 +67,15 @@ extension PostView {
                     .frame(maxHeight: 120)
                     .frame(maxWidth: 500)
                     .lineLimit(5)
-                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                    .padding(.all, 8)
                     .background(Color.init(red: 249 / 255, green: 249 / 255, blue: 249 / 255))
                     .cornerRadius(10)
             }
-            .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
+            .padding(.top, 5)
             
             controlRow
-                .padding(EdgeInsets(top: 5, leading: 25, bottom: 0, trailing: 25))
+                .padding(.top, 5)
+                .padding(.horizontal, 25)
         }
     }
     

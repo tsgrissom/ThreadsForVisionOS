@@ -75,14 +75,14 @@ extension ProfileAsListItemView {
                     .bold()
                 Text(getDisplayName())
                     .fontWeight(.regular)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    .padding(.bottom, 10)
                 Spacer()
                     .frame(height: 10)
                 Text(getFollowerCount())
                     .fontWeight(.regular)
             }
             .foregroundStyle(.white)
-            .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
+            .padding(.leading, 5)
             Spacer()
         }
     }

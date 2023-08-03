@@ -16,7 +16,8 @@ struct SearchView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Spacer()
             }
-            .padding(EdgeInsets(top: 0, leading: 35, bottom: 0, trailing: 0))
+            .padding(.leading, 35)
+            
             HStack {
                 ProfileListView()
                     .frame(width: 500)

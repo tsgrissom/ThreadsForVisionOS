@@ -3,7 +3,6 @@ import SwiftUI
 struct ProfileView: View {
     
     let isOwnedByUser = true
-    let innerEdges = EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40)
     
     var body: some View {
         let navTitle: String = isOwnedByUser ? "Your Profile" : "Display Name"
@@ -32,28 +31,29 @@ extension ProfileView {
                 topInteractionRow
                     .foregroundStyle(.black)
             }
-            .padding(innerEdges)
+            .padding(.horizontal, 40)
             .frame(maxWidth: 400)
             Spacer()
         }
     }
     
     private var lowerPanel: some View {
-        ScrollView {
+        let recentPostScrollerEdges = EdgeInsets(top: 5, leading: 15, bottom: 10, trailing: 10)
+        return ScrollView {
             VStack(spacing: 0) {
                 HStack {
                     Text("Recent Posts")
                         .font(.extraLargeTitle2)
                     Spacer()
                 }
-                .padding(EdgeInsets(top: 0, leading: 40, bottom: 0, trailing: 40))
+                .padding(.horizontal, 40)
                 
                 HStack {
                     recentPostsSection
                         .scrollIndicators(.hidden)
                     Spacer()
                 }
-                .padding(EdgeInsets(top: 5, leading: 15, bottom: 10, trailing: 10))
+                .padding(recentPostScrollerEdges)
             }
         }
     }
@@ -119,14 +119,10 @@ extension ProfileView {
     
     private var recentPostsSection: some View {
         ScrollView(.horizontal) {
-            HStack {
-                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
-                PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+            HStack(spacing: 5) {
+                ForEach(1...10, id: \.self) { i in
+                    PostView(displayHeader: false, isOwnedByUser: isOwnedByUser)
+                }
             }
         }
     }

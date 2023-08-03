@@ -5,19 +5,12 @@ struct FeedView: View {
     var body: some View {
         HStack {
             ScrollView(showsIndicators: false) {
-                PostView(isOwnedByUser: false)
-                PostView(isOwnedByUser: false)
-                PostView(isOwnedByUser: true)
-                PostView(isOwnedByUser: false)
-                PostView(isOwnedByUser: false)
-                PostView(isOwnedByUser: false)
-                PostView(isOwnedByUser: false)
-                PostView(isOwnedByUser: false)
-                PostView(isOwnedByUser: false)
-                PostView(isOwnedByUser: false)
+                ForEach(1...10, id: \.self) { i in
+                    PostView(isOwnedByUser: false)
+                }
             }
             .scrollClipDisabled(true)
-            .padding(EdgeInsets(top: 0, leading: 25, bottom: 0, trailing: 0))
+            .padding(.leading, 25)
             Spacer()
         }
         .navigationTitle("Your Feed")

@@ -12,10 +12,11 @@ struct NewThreadView: View {
         HStack {
             leftPane
                 .frame(width: 400)
-                .padding(EdgeInsets(top: 15, leading: 25, bottom: 0, trailing: 0))
+                .padding(.top, 15)
+                .padding(.leading, 25)
             rightPane
                 .frame(width: 180)
-                .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
+                .padding(.top, 15)
             Spacer()
         }
         .navigationTitle("New thread")
@@ -40,10 +41,11 @@ extension NewThreadView {
             VStack {
                 initialPostRow
                 interThreadRow
-                    .padding(EdgeInsets(top: 0, leading: 45, bottom: 0, trailing: 0))
+                    .padding(.leading, 45)
                 ScrollView {
                     subsequentPostRow
-                        .padding(EdgeInsets(top: 1, leading: 36, bottom: 0, trailing: 0))
+                        .padding(.top, 1)
+                        .padding(.leading, 36)
                 }
                 .scrollIndicators(.hidden)
             }
@@ -54,7 +56,8 @@ extension NewThreadView {
     private var rightPane: some View {
         return VStack {
             postSettingsSection
-                .padding(EdgeInsets(top: 0, leading: 10, bottom: 20, trailing: 0))
+                .padding(.leading, 10)
+                .padding(.bottom, 20)
             Spacer()
         }
     }
@@ -88,7 +91,7 @@ extension NewThreadView {
             }) {
                 Image(systemName: "paperclip")
             }
-            .padding(EdgeInsets(top: 0, leading: 35, bottom: 0, trailing: 0))
+            .padding(.leading, 35)
             Spacer()
         }
     }
@@ -104,7 +107,7 @@ extension NewThreadView {
                 
             })
             .foregroundStyle(.black)
-            .padding(EdgeInsets(top: 0, leading: 25.5, bottom: 0, trailing: 0))
+            .padding(.leading, 25.5)
             Spacer()
         }
     }
@@ -119,7 +122,7 @@ extension NewThreadView {
                     .frame(width: 160, alignment: .leading)
             }
             .buttonStyle(.plain)
-            .padding(EdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 0))
+            .padding(.top, 16)
             Button(action: {
                 
             }) {
