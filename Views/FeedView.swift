@@ -21,6 +21,7 @@ struct FeedView: View {
     ZStack {
         RoundedRectangle(cornerRadius: 30)
             .fill(.black.opacity(0.8))
-        FeedView().padding()
+        FeedView()
+            .padding()
     }
 }

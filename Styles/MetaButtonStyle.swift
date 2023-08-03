@@ -34,9 +34,7 @@ struct MetaButtonStyle: ButtonStyle {
 
 #Preview {
     VStack {
-        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-            Text("Hello world!")
-        })
+        Button("Hello world!") { }
         .buttonStyle(MetaButtonStyle())
     }
 }

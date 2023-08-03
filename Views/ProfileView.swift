@@ -65,7 +65,7 @@ extension ProfileView {
                 .frame(maxWidth: 110)
                 .frame(maxHeight: 30)
             Text("threads.net")
-                .foregroundStyle(.gray)
+                .foregroundStyle(.black)
         }
     }
     

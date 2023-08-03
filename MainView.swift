@@ -16,7 +16,7 @@ struct MainView: View {
     }
     
     private var navigationLinks: some View {
-        return Group {
+        Group {
             NavigationLink(destination: ActivityView(), label: {
                 Label(title: { Text("Activity") }, icon: {
                     Image(systemName: "heart")

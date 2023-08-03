@@ -31,6 +31,7 @@ struct ProfileAsListItemView: View {
 }
 
 extension ProfileAsListItemView {
+    
     func getUsername() -> String {
         MockupUtilities.getMockUsername(firstName: self.firstName, lastName: self.lastName)
     }
@@ -111,16 +112,9 @@ extension ProfileAsListItemView {
         RoundedRectangle(cornerRadius: 30)
             .fill(.black.opacity(0.8))
         ScrollView {
-            ProfileAsListItemView()
-            ProfileAsListItemView()
-            ProfileAsListItemView()
-            ProfileAsListItemView()
-            ProfileAsListItemView()
-            ProfileAsListItemView()
-            ProfileAsListItemView()
-            ProfileAsListItemView()
-            ProfileAsListItemView()
-            ProfileAsListItemView()
+            ForEach(1...10, id: \.self) { i in
+                    ProfileAsListItemView()
+            }
         }
     }
 }
