@@ -33,8 +33,26 @@ struct MetaButtonStyle: ButtonStyle {
 }
 
 #Preview {
-    VStack {
-        Button("Hello world!") { }
-        .buttonStyle(MetaButtonStyle())
+    ZStack {
+        RoundedRectangle(cornerRadius: 30)
+            .fill(.white)
+        ScrollView {
+            VStack(spacing: 10) {
+                Button("Hello world!") { }
+                    .buttonStyle(MetaButtonStyle())
+                Button("A wide Meta-styled button") { }
+                    .buttonStyle(MetaButtonStyle())
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Label(
+                        title: { Text("Button w/ Icon") },
+                        icon: { Image(systemName: "heart.fill") }
+                    )
+                    .foregroundStyle(.red)
+                })
+                .buttonStyle(MetaButtonStyle())
+            }
+            .padding(.top, 200)
+        }
+        .frame(width: 800)
     }
 }

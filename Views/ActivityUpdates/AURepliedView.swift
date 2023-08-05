@@ -44,7 +44,7 @@ struct AURepliedView: View {
             }
             
             Spacer()
-                .frame(width: 10)
+                .frame(width: 20)
         }
     }
     

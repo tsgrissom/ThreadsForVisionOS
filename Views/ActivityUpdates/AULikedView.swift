@@ -50,7 +50,7 @@ extension AULikedView {
                     .offset(x: 15, y: 10)
             }
             Spacer()
-                .frame(width: 10)
+                .frame(width: 20)
         }
     }
     

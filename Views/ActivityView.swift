@@ -5,6 +5,7 @@ import LoremSwiftum
 struct ActivityListPanelViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .frame(width: 420)
             .padding(.horizontal, 15)
             .padding(.top, 5)
     }
@@ -25,10 +26,8 @@ struct ActivityView: View {
                 replySection
                     .modifier(panelMod)
                 likeSection
-                    .frame(width: 400)
                     .modifier(panelMod)
                 followSection
-                    .frame(width: 410)
                     .modifier(panelMod)
             }
         }
